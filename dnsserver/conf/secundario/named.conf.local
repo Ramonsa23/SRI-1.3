@@ -8,11 +8,12 @@
 
 zone "starwars.lan" {
     type slave;
-    file "/etc/bind/db.starwars.lan";
-    masters {192.168.20.11};
+    file "db.starwars.lan";
+    masters {192.168.20.10;}; //IP del primario
 };
 
 zone "20.168.192.in-addr.arpa" {
-    type master;
-    file "/etc/bind/db.192.168.20";
+    type slave;
+    file "db.192.168.20"; //por defecto, lo guardará en /var/cache/bind
+    masters {192.168.20.10;};
 };

@@ -2,6 +2,8 @@ services:
   darthvader:
     build: dnsserver
     hostname: darthvader #dns primario
+    dns:
+      - 192.168.20.10
     networks:
       rededns:
           ipv4_address: 192.168.20.10
@@ -14,6 +16,8 @@ services:
   darthsidious: #Servidor secundario
     build: dnsserver
     hostname: darthsidious # dns secundario
+    dns:
+      - 192.168.20.11
     networks:
       rededns:
           ipv4_address: 192.168.20.11
@@ -26,6 +30,7 @@ services:
     hostname: eq1
     dns:
       - 192.168.20.10
+      - 192.168.20.11
     networks:
       rededns:
           ipv4_address: 192.168.20.100
