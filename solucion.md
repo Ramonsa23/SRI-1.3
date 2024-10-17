@@ -5,6 +5,8 @@ named.conf.local del dns primario:
 
 ![imagen](imaxes/img2.png)
 
+OJO: Es mejor poner todo con ruta relativa, sin el /etc/bind, y luego crear los archivos de resolución directa e inversa en /var/cache/bind . En el primario en este caso no afecta, pero en el secundario no nos crearía el archivo de copia de zona porque no tendría permisos. En cambio, en /var/cache/bind sí los tiene.
+
 named.conf.local del dns secundario:
 
 ![imagen](imaxes/img3.png)
@@ -25,11 +27,26 @@ Es importante modificar tanto zona inversa como directa, en caso de que haya cam
 
 ![imagen](imaxes/img4.png)
 
+dig axfr starwars.lan  nos permite comprobar que recibió la zona el servidor secundario. Si configuramos el dns para esa máquina, no es necesario especificarle al final la ip de quien le preguntamos, sino tendríamos que escribirlo así : dig axfr starwars.lan 192.168.20.10
+
+Si configuramos 2 dns para la misma máquina, SOLO preguntará al segundo cuando el primero esté caído.
+
+![imagen](imaxes/img5.png)
+en /var/cache/bind se guarda la copia de la zona, que la saca del primario.
+
+Para reiniciar el servidor bind, /etc/init.d/named restart
 ### 3.Comproba que o servidor secundario pode resolver ese nome.
+
+Facemos a comprobación:
+![imagen](imaxes/img6.png)
 
 ### 4.Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.0.29)
 
-### 6. Pega nesta tarefa o enlace ao teu repo de github
+Usaremos las llaves TSIG: https://manuais.iessanclemente.net/index.php/Servidor_DNS_bind#Chaves_TSIG
+
+
+
+### 5. Pega nesta tarefa o enlace ao teu repo de github
 
 https://github.com/Ramonsa23/SRI-1.1
 
