@@ -3,7 +3,7 @@
 ;
 $TTL	604800
 @	IN	SOA	darthvader.starwars.lan. ramon.starwars.lan. (
-			      6		; Serial
+			      7		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
@@ -23,4 +23,4 @@ palpatine		IN	CNAME	darthsidious.starwars.lan.
 @				IN	MX	10	c3p0.starwars.lan.
 lenda			IN	TXT	"Que a forza te acompanhe"
 chewacca		IN	A	192.168.20.28
-
+r2d2			IN	A	192.168.20.29

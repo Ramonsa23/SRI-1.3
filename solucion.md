@@ -40,11 +40,55 @@ Para reiniciar el servidor bind, /etc/init.d/named restart
 Facemos a comprobación:
 ![imagen](imaxes/img6.png)
 
-### 4.Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.0.29)
+### 4.Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.20.29)
 
 Usaremos las llaves TSIG: https://manuais.iessanclemente.net/index.php/Servidor_DNS_bind#Chaves_TSIG
 
+1.- Comenzamos instalando ntpdate en servidor primario y secundario, y sincronizando la hora: (No es necesario)
+apt-get install ntpdate
 
+ntpdate -u hora.roa.es
+
+2.- Generamos la clave TSIG y la copiamos:
+
+tsig-keygen LLAVE
+![imagen](imaxes/img7.png)
+
+3.- Creamos el fichero de llaves en ambos servidores:
+
+nano /etc/bind/tsig.keys
+![imagen](imaxes/img8.png)
+
+4.- Incluimos el fichero de claves en la configuración de BIND, en named.conf:
+
+![imagen](imaxes/img9.png)
+
+5.- Configurar el servidor primario para usar la clave TSIG:
+
+En named.conf.local añadimos la key con allow transfer
+
+![imagen](imaxes/img10.png)
+
+
+6.- Configurar el servidor secundario para aceptar la clave TSIG
+
+En el DNS secundario, en /etc/bind/named.conf, añadimos la llave.
+
+![imagen](imaxes/img11.png)
+
+7.- Reiniciamos y comprobamos en los logs que aceptó la llave:
+
+![imagen](imaxes/img12.png)
+
+8.- Añadimos r2d2, cambiamos serial y comprobamos que se hace la transferencia de zona nueva:
+
+OJO: TODO ARCHIVO DE CONFIGURACIÓN DEBE TERMINAR CON UNA LÍNEA EN BLANCO.
+
+![imagen](imaxes/img13.png)
+
+y que podemos resolver r2d2 en el secundario:
+
+![imagen](imaxes/img14.png)
 
 ### 5. Pega nesta tarefa o enlace ao teu repo de github
 

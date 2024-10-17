@@ -1,0 +1,4 @@
+key "LLAVE" {
+        algorithm hmac-sha256;
+        secret "+AvhXj1mzmC35pjlUiR0bKFVLK5AjSb0foGj/1Pcb08=";
+};

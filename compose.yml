@@ -12,6 +12,8 @@ services:
       - ./dnsserver/conf/primario/db.starwars.lan:/etc/bind/db.starwars.lan
       - ./dnsserver/conf/primario/db.192.168.20:/etc/bind/db.192.168.20
       - ./dnsserver/conf/primario/named.conf.local:/etc/bind/named.conf.local
+      - ./dnsserver/conf/primario/named.conf:/etc/bind/named.conf
+      - ./dnsserver/conf/primario/tsig.keys:/etc/bind/tsig.keys
       #Local -- : -- Contenedor
   darthsidious: #Servidor secundario
     build: dnsserver
@@ -24,6 +26,8 @@ services:
     volumes:
       - ./dnsserver/conf/secundario/named.conf.options:/etc/bind/named.conf.options
       - ./dnsserver/conf/secundario/named.conf.local:/etc/bind/named.conf.local
+      - ./dnsserver/conf/secundario/named.conf:/etc/bind/named.conf
+      - ./dnsserver/conf/secundario/tsig.keys:/etc/bind/tsig.keys
       #Local -- : -- Contenedor
   eq1:
     build: debian
