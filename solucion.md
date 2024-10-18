@@ -1,17 +1,17 @@
 # Instalación de zonas secundarias.
 
 ### 1.Tomaremos a máquina darthsidious, e configuraremola para ser servidor secundario, tanto da zona primaria de resolución directa como de resolución inversa. Captura os ficheiros de configuración en ambalas dúas máquinas. Fai unha captura onde se vexa o reinicio da máquina darthsidious, no que se vexa no log dos dous equipos e que se fixo a transferencia de zona.
-named.conf.local del dns primario:
+Archivo named.conf.local del DNS primario:
 
 ![imagen](imaxes/img2.png)
 
-OJO: Es mejor poner todo con ruta relativa, sin el /etc/bind, y luego crear los archivos de resolución directa e inversa en /var/cache/bind . En el primario en este caso no afecta, pero en el secundario no nos crearía el archivo de copia de zona porque no tendría permisos. En cambio, en /var/cache/bind sí los tiene.
+Nota: Es mejor poner todo con ruta relativa, sin el /etc/bind, y luego crear los archivos de resolución directa e inversa en /var/cache/bind . En el primario en este caso no afecta, pero en el secundario no nos crearía el archivo de copia de zona porque no tendría permisos. En cambio, en /var/cache/bind sí los tiene.
 
-named.conf.local del dns secundario:
+Archivo named.conf.local del DNS secundario:
 
 ![imagen](imaxes/img3.png)
 
-Reinicio dns secundario darthsidious:
+Reinicio del DNS secundario darthsidious:
 
 ![imagen](imaxes/img1.png)
 
@@ -27,7 +27,7 @@ Es importante modificar tanto zona inversa como directa, en caso de que haya cam
 
 ![imagen](imaxes/img4.png)
 
-dig axfr starwars.lan  nos permite comprobar que recibió la zona el servidor secundario. Si configuramos el dns para esa máquina, no es necesario especificarle al final la ip de quien le preguntamos, sino tendríamos que escribirlo así : dig axfr starwars.lan 192.168.20.10
+dig axfr starwars.lan  nos permite realizar una prueba de transferencia de zona. Si configuramos el dns para esa máquina, no es necesario especificarle al final la ip de quien le preguntamos, sino tendríamos que escribirlo así : dig axfr starwars.lan 192.168.20.10
 
 Si configuramos 2 dns para la misma máquina, SOLO preguntará al segundo cuando el primero esté caído.
 
@@ -96,7 +96,7 @@ y que podemos resolver r2d2 en el secundario:
 
 ### 5. Pega nesta tarefa o enlace ao teu repo de github
 
-https://github.com/Ramonsa23/SRI-1.1
+https://github.com/Ramonsa23/SRI-1.3
 
 - git status
 - git add .
