@@ -110,4 +110,4 @@ a no ser que añadamos en el primario also-notify {192.168.20.x}
 
 Por defecto, deja a todos, pero si añadimos en el primario allow-transfer{192.168.20.x} podemos añadir una lista de dnssecundarios que queramos añadir.
 
-Para comprobar que la transferencia de zona se hace, dig axfr zona ip_dns_primario
+Para comprobar que la transferencia de zona se hace, dig axfr zona ip_dns_primario. Si configuraramos las llaves, hay que pasarle al comando -k nombre.archivo.clave
