@@ -31,13 +31,15 @@ dig axfr starwars.lan  nos permite comprobar que recibió la zona el servidor se
 
 Si configuramos 2 dns para la misma máquina, SOLO preguntará al segundo cuando el primero esté caído.
 
+en /var/cache/bind se guarda la copia de la zona, que la saca del primario:
+
 ![imagen](imaxes/img5.png)
-en /var/cache/bind se guarda la copia de la zona, que la saca del primario.
 
 Para reiniciar el servidor bind, /etc/init.d/named restart
 ### 3.Comproba que o servidor secundario pode resolver ese nome.
 
-Facemos a comprobación:
+Hacemos la comprobación:
+
 ![imagen](imaxes/img6.png)
 
 ### 4.Fai os cambios necesarios para que as trasferencias se fagan de forma segura empregando chaves.  Repite as capturas e vídeos do punto 2, engadindo o rexistro r2d2 (192.168.20.29)
@@ -52,11 +54,13 @@ ntpdate -u hora.roa.es
 2.- Generamos la clave TSIG y la copiamos:
 
 tsig-keygen LLAVE
+
 ![imagen](imaxes/img7.png)
 
 3.- Creamos el fichero de llaves en ambos servidores:
 
 nano /etc/bind/tsig.keys
+
 ![imagen](imaxes/img8.png)
 
 4.- Incluimos el fichero de claves en la configuración de BIND, en named.conf:
@@ -106,3 +110,4 @@ a no ser que añadamos en el primario also-notify {192.168.20.x}
 
 Por defecto, deja a todos, pero si añadimos en el primario allow-transfer{192.168.20.x} podemos añadir una lista de dnssecundarios que queramos añadir.
 
+Para comprobar que la transferencia de zona se hace, dig axfr zona ip_dns_primario
